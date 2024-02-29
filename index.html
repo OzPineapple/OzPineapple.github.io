@@ -69,8 +69,7 @@
 		</div>
 	</body>
 	<script>
-		let settvoice = document.getElementById("sett_audio");
-		let settvoice = new Audio('audio/sett.webp');
+		let settvoice = new Audio('audio/sett.mp3');
 		let ringtone = new Audio('audio/ring.mp3');
 		let icon = document.getElementById("icon");
 		let picture = document.getElementById("picture");
@@ -117,6 +116,7 @@
 			status_text.innerText = d.getHours().toString().padStart(2,'0') +
 				':' + d.getMinutes().toString().padStart(2,'0') +
 				':' + d.getSeconds().toString().padStart(2,'0');
+			clock_count += 1000;
 		}
 	</script>
 </html>
