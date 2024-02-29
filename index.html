@@ -46,6 +46,7 @@
 				border-radius: 100%;
 				background-image: url(img/on.png);
 				background-size: contain;
+				animation: glow-green 2s infinite alternate;
 			}
 			#status {
 				margin: 1rem;
@@ -57,12 +58,41 @@
 			audio {
 				display: none;
 			}
+			@keyframes glow-green {
+				from {
+					box-shadow: 0px 0px 0px 0px #0A0;
+				}
+				to {
+					box-shadow: 0px 0px 50px 0px #0A0;
+				}
+			}
+			@keyframes glow-red {
+				from {
+					box-shadow: 0px 0px 0px 0px #A00;
+				}
+				to {
+					box-shadow: 0px 0px 50px 0px #A00;
+				}
+			}
 		</style>
 	</head>
 	<body>
 		<div id="profile">
 			<div id="picture"></div>
-			<div id="status">Feliz cumple Zat :3/ - Ozu</div>
+			<div id="status">
+				¡Feliz cumpleaños Zat! :D
+				<br>
+				Es otro año en que sobreviviste a crisis existenciales
+				y le demostraste a la vida que le puedes partir la madre :3.
+				Espero que te la pases muy bien hoy y que sigas siendo
+				la morra ecatepence que parte madres :3
+				<br>
+				- Ozu
+				<br>
+				Postdata:
+				<br>
+				Preciona el botón de encendido
+			</div>
 		</div>
 		<div id="control">
 			<div id="icon"></div>
@@ -83,37 +113,43 @@
 				case "start":
 					ringtone.play();
 					icon.style.backgroundImage = "url('img/phone.webp')";
-					status_text.innerText = "Sett";
+					status_text.innerHTML = "Sett";
 					picture.style.backgroundImage = "url('img/sett.webp')";
 					status_call = "calling";
+					icon.style.animation = "glow-green 0.5s infinite alternate";
 				break;
 				case "calling":
 					status_call = "picked";
 					clock_count = 21600000;
 					clockCount();
 					clock_interval = setInterval(clockCount,1000);
+					icon.style.animation = "glow-red 5s infinite alternate";
 					icon.style.backgroundColor = "red";
 					ringtone.pause();
+					ringtone = new Audio('audio/ring.mp3');
 					settvoice.play();
 				break;
 				case "picked":
 					clearInterval(clock_interval);
 					status_call = "ended";
-					status_text.innerText = "Llamada terminada";
+					status_text.innerHTML = "Llamada terminada";
 					icon.style.backgroundColor = "brown";
 					settvoice.pause();
+					settvoice = new Audio('audio/ring.mp3');
+					icon.style.animation = "none";
 				break;
 				case "ended":
 					status_call = "calling";
 					status_text.innerText = "Sett";
 					icon.style.backgroundColor = "green";
 					ringtone.play();
+					icon.style.animation = "glow-green 0.5s infinite alternate";
 				break;
 			}
 		}
 		function clockCount(){
 			let d = new Date(clock_count);
-			status_text.innerText = d.getHours().toString().padStart(2,'0') +
+			status_text.innerHTML = d.getHours().toString().padStart(2,'0') +
 				':' + d.getMinutes().toString().padStart(2,'0') +
 				':' + d.getSeconds().toString().padStart(2,'0');
 			clock_count += 1000;
