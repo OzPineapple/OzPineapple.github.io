@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title> Cumpleaños de Zat :D </title>
+		<style>
+			html { 
+				width: 100vw;
+				height: 100vh;
+				margin: 0px;
+			}
+			body {
+				margin: 0px;
+				width: 100%;
+				height: 100%;
+				background-color: black;
+			}
+			#control {
+				width: 100%;
+				height: 30%;
+				background-color: gray;
+				display: flex;
+				flex-wrap: wrap;
+				align-content: center;
+				justify-content: center;
+				border-radius: 1rem;
+			}
+			#profile {
+				width: 100%;
+				height: 70%;
+				display: flex;
+				flex-wrap: wrap;
+				align-content: center;
+				justify-content: center;
+			}
+			#picture {
+				diplay: none;
+				aspect-ratio: 1 / 1;
+				height: 50%;
+				background-color: block;
+				border-radius: 100%;
+				background-size: contain;
+			}
+			#icon {
+				aspect-ratio: 1 / 1;
+				height: 50%;
+				background-color: green;
+				border-radius: 100%;
+				background-image: url(img/on.png);
+				background-size: contain;
+			}
+			#status {
+				margin: 1rem;
+				color: white;
+				font-size: 2rem;
+				width: 100%;
+				text-align: center;
+			}
+			audio {
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="profile">
+			<div id="picture"></div>
+			<div id="status">Feliz cumple Zat :3/ - Ozu</div>
+		</div>
+		<div id="control">
+			<div id="icon"></div>
+		</div>
+		<audio class="player" controls preload="none" id="sett_audio">
+			<source src="https://docs.google.com/uc?export=open&id=1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY" type="audio/mp3">
+		</audio>
+	</body>
+	<script>
+		//https://drive.google.com/file/d/1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY/view?usp=drive_link
+		//https://drive.google.com/file/d/1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY/view?usp=sharing
+		let settvoice = document.getElementById("sett_audio");
+		let ringtone = new Audio('audio/ring.mp3');
+		let icon = document.getElementById("icon");
+		let picture = document.getElementById("picture");
+		let status_text = document.getElementById("status");
+		let status_call = "start";
+		let clock_interval;
+		let clock_count;
+		icon.addEventListener("click", phoneCall );
+		function phoneCall(e){
+			switch(status_call){
+				case "start":
+					ringtone.play();
+					icon.style.backgroundImage = "url('img/phone.webp')";
+					status_text.innerText = "Sett";
+					picture.style.backgroundImage = "url('img/sett.webp')";
+					status_call = "calling";
+				break;
+				case "calling":
+					status_call = "picked";
+					clock_count = 21600000;
+					clockCount();
+					clock_interval = setInterval(clockCount,1000);
+					icon.style.backgroundColor = "red";
+					ringtone.pause();
+					settvoice.play();
+				break;
+				case "picked":
+					clearInterval(clock_interval);
+					status_call = "ended";
+					status_text.innerText = "Llamada terminada";
+					icon.style.backgroundColor = "brown";
+					settvoice.pause();
+				break;
+				case "ended":
+					status_call = "calling";
+					status_text.innerText = "Sett";
+					icon.style.backgroundColor = "green";
+					ringtone.play();
+				break;
+			}
+		}
+		function clockCount(){
+			let d = new Date(clock_count);
+			status_text.innerText = d.getHours().toString().padStart(2,'0') +
+				':' + d.getMinutes().toString().padStart(2,'0') +
+				':' + d.getSeconds().toString().padStart(2,'0');
+		}
+	</script>
+</html>
