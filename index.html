@@ -67,14 +67,10 @@
 		<div id="control">
 			<div id="icon"></div>
 		</div>
-		<audio class="player" controls preload="none" id="sett_audio">
-			<source src="https://docs.google.com/uc?export=open&id=1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY" type="audio/mp3">
-		</audio>
 	</body>
 	<script>
-		//https://drive.google.com/file/d/1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY/view?usp=drive_link
-		//https://drive.google.com/file/d/1ekZm8ATwwpAD8P3PnLis8mkuNdykwWCY/view?usp=sharing
 		let settvoice = document.getElementById("sett_audio");
+		let settvoice = new Audio('audio/sett.mp3');
 		let ringtone = new Audio('audio/ring.mp3');
 		let icon = document.getElementById("icon");
 		let picture = document.getElementById("picture");
