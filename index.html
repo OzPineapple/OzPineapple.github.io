@@ -83,11 +83,12 @@
 				¡Feliz cumpleaños Zat! :D
 				<br>
 				Es otro año en que sobreviviste a crisis existenciales
-				y le demostraste a la vida que le puedes partir la madre :3.
-				Espero que te la pases muy bien hoy y que sigas siendo
-				la morra ecatepence que parte madres :3
+				y le demostraste a la vida que le puedes partir la madre.
+				Te quiero mucho, gracias por ser mi mejor amiga :3
 				<br>
 				- Ozu
+				<br>
+				<img src="img/jinx.jpg" width=100>
 				<br>
 				Postdata:
 				<br>
@@ -107,6 +108,7 @@
 		let status_call = "start";
 		let clock_interval;
 		let clock_count;
+		let call_inerval;
 		icon.addEventListener("click", phoneCall );
 		function phoneCall(e){
 			switch(status_call){
@@ -128,6 +130,7 @@
 					ringtone.pause();
 					ringtone = new Audio('audio/ring.mp3');
 					settvoice.play();
+					call_interval = setInterval( endCall, 54000 );
 				break;
 				case "picked":
 					clearInterval(clock_interval);
@@ -135,8 +138,9 @@
 					status_text.innerHTML = "Llamada terminada";
 					icon.style.backgroundColor = "brown";
 					settvoice.pause();
-					settvoice = new Audio('audio/ring.mp3');
+					settvoice = new Audio('audio/sett.mp3');
 					icon.style.animation = "none";
+					clearInterval( call_interval );
 				break;
 				case "ended":
 					status_call = "calling";
@@ -147,9 +151,21 @@
 				break;
 			}
 		}
+		function endCall(){
+			if( status_call == "picked" ){
+				clearInterval(clock_interval);
+				status_call = "ended";
+				status_text.innerHTML = "Llamada terminada";
+				icon.style.backgroundColor = "brown";
+				settvoice.pause();
+				settvoice = new Audio('audio/sett.mp3');
+				icon.style.animation = "none";
+			}
+			clearInterval( call_interval );
+		}
 		function clockCount(){
 			let d = new Date(clock_count);
-			status_text.innerHTML = d.getHours().toString().padStart(2,'0') +
+			status_text.innerHTML = "Llamada en curso<br>" + d.getHours().toString().padStart(2,'0') +
 				':' + d.getMinutes().toString().padStart(2,'0') +
 				':' + d.getSeconds().toString().padStart(2,'0');
 			clock_count += 1000;
